@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Form</class>
- <widget class="QWidget" name="Form">
+ <widget class="QWidget" name="Капучино">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>833</width>
-    <height>482</height>
+    <width>873</width>
+    <height>521</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>841</width>
-     <height>481</height>
+     <width>871</width>
+     <height>461</height>
     </rect>
    </property>
    <column>
@@ -65,6 +65,25 @@
      <string>Объем</string>
     </property>
    </column>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>470</y>
+     <width>321</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Добавить запись</string>
+   </property>
   </widget>
  </widget>
  <resources/>
