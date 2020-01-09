@@ -1,15 +1,16 @@
 import sys
 import sqlite3
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QWidget, QTableWidgetItem, \
     QAbstractItemView
+from main_design import Ui_Form
+from add_coffee_design import Ui_Form2
 
 
-class MyWidget(QWidget):
+class MyWidget(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
-        self.con = sqlite3.connect("coffee.sqlite")
+        self.setupUi(self)
+        self.con = sqlite3.connect("data/coffee.sqlite")
         self.func = self.load_info
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.pushButton.clicked.connect(self.open_add_widget)
@@ -34,15 +35,16 @@ class MyWidget(QWidget):
         self.new_info = AddCoffee(self.func)
         self.new_info.show()
 
-class AddCoffee(QWidget):
+
+class AddCoffee(QWidget, Ui_Form2):
     def __init__(self, func):
         super().__init__()
+        self.setupUi(self)
         self.func = func
-        uic.loadUi('addEditCoffeeForm.ui', self)
         self.pushButton.clicked.connect(self.add_info)
 
     def add_info(self):
-        con = sqlite3.connect("coffee.sqlite")
+        con = sqlite3.connect("data/coffee.sqlite")
         cur = con.cursor()
         cur.execute(f"""INSERT INTO coffee_info(variety, roast, beanOrGround,
         taste, price, volume) VALUES('{self.lineEdit.text()}',
@@ -56,17 +58,17 @@ class AddCoffee(QWidget):
         self.close()
 
 
-class EditCoffee(QWidget):
+class EditCoffee(QWidget, Ui_Form2):
     def __init__(self, func, id=None):
         super().__init__()
+        self.setupUi(self)
         self.func = func
         self.id = int(id)
-        uic.loadUi('addEditCoffeeForm.ui', self)
         self.load_cells_info()
         self.pushButton.clicked.connect(self.edit_info)
 
     def load_cells_info(self):
-        self.con = sqlite3.connect("coffee.sqlite")
+        self.con = sqlite3.connect("data/coffee.sqlite")
         cur = self.con.cursor()
         result = cur.execute(f"""SELECT * FROM coffee_info 
         WHERE id = {self.id}""").fetchone()
@@ -81,7 +83,7 @@ class EditCoffee(QWidget):
         self.lineEdit_6.setText(str(result[6]))
 
     def edit_info(self):
-        con = sqlite3.connect("coffee.sqlite")
+        con = sqlite3.connect("data/coffee.sqlite")
         cur = con.cursor()
         cur.execute(f"""UPDATE coffee_info SET variety = 
         '{self.lineEdit.text()}', roast = '{self.lineEdit_2.text()}', 
